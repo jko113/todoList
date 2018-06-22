@@ -31,3 +31,9 @@ WHERE Id = 3 AND IsDone = TRUE;
 UPDATE Todos
 SET Title = 'Roll some burritos'
 WHERE Id = 2;
+
+--Delete by ID
+DELETE FROM Todos WHERE ID = 2;
+
+--Delete all checked todos
+DELETE FROM Todos WHERE IsDone = TRUE;
