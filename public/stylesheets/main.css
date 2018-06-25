@@ -1,0 +1,8 @@
+body {
+    background-color: salmon;
+}
+
+div a {
+    text-decoration: none;
+    color: rgb(28,28,28);
+}

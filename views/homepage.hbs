@@ -1,0 +1,9 @@
+<h1>Get this stuff done!</h1>
+
+{{!-- <div>{{todos}}</div> --}}
+
+{{#each todos}}
+<div>
+    <a href="/{{id}}">{{title}}: {{isdone}}</a>
+</div>
+{{/each}}
