@@ -1,0 +1,11 @@
+{{!-- {{data --}}
+<h1>Edit Entry!</h1>
+<div>Original todo:</div>
+<div>{{data.title}}: {{data.isdone}}</div>
+<br>
+<form action="/{{data.id}}/edit" method="POST">
+    <input type="text" name="newTitle">
+    <br><br>
+    <input type="submit">
+    <input type="reset">
+</form>
