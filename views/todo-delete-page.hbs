@@ -1,0 +1,8 @@
+<h1>Delete Entry</h1>
+
+<div>{{title}}: {{isdone}}</div>
+
+<div>Delete this entry?</div>
+<form action="/{{id}}/delete" method="POST">
+    <input type="submit" value="yes"> <input type="button" value="no">
+</form>
