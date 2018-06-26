@@ -4,13 +4,13 @@ dotenv.config();
 const express = require("express");
 const app = express();
 const Todo = require("./db");
-const port = 4321;
+const port = 3000;
 const hbs = require("express-handlebars");
 const static = express.static;
 const bodyParser = require("body-parser");
 
 const setupAuth = require("./auth");
-setupAuth(app);
+const ensureAuthenticated = require("./auth").ensureAuthenticated;
 
 app.engine(".hbs", hbs({
     defaultLayout: "layout",
@@ -19,6 +19,7 @@ app.engine(".hbs", hbs({
 app.set("view engine", ".hbs");
 app.use(static("public"));
 app.use(bodyParser.urlencoded({extended: false}));
+setupAuth(app);
 
 app.get("/", (req, res) => {
     Todo.getAll()
@@ -34,7 +35,7 @@ app.get("/", (req, res) => {
 //     console.log(req.body);
 // });
 
-app.get("/new", (req, res) => {
+app.get("/new", ensureAuthenticated, (req, res) => {
     res.render("todo-create-page");
 });
 
