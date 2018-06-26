@@ -1,9 +1,15 @@
 <h1>Get this stuff done!</h1>
-
-{{!-- <div>{{todos}}</div> --}}
-
-{{#each todos}}
-<div>
-    <a href="/{{id}}">{{title}}: {{isdone}}</a> <a href="/{{id}}/edit">Edit</a>
-</div>
-{{/each}}
+<div><a href="/new">Add new todo</a></div><br>
+{{!-- <div>{{todos</div> --}}
+{{!-- <form action="/" method="POST"> --}}
+    {{#each todos}}
+        <div>
+            {{!-- <input type="checkbox"> --}}
+            <a href="/{{id}}">{{title}}: {{isdone}}</a>
+            <a href="/{{id}}/edit">Edit </a>
+            <a href="/{{id}}/delete">Delete</a>
+        </div>
+    {{/each}}
+    {{!-- <input type="submit" value="save changes">
+    <input type="reset">
+</form> --}}

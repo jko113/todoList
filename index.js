@@ -1,3 +1,6 @@
+const dotenv = require("dotenv");
+dotenv.config();
+
 const express = require("express");
 const app = express();
 const Todo = require("./db");
@@ -5,6 +8,9 @@ const port = 4321;
 const hbs = require("express-handlebars");
 const static = express.static;
 const bodyParser = require("body-parser");
+
+const setupAuth = require("./auth");
+setupAuth(app);
 
 app.engine(".hbs", hbs({
     defaultLayout: "layout",
@@ -23,6 +29,10 @@ app.get("/", (req, res) => {
         })
         .catch(error => console.error(error));
 });
+
+// app.post("/", (req, res) => {
+//     console.log(req.body);
+// });
 
 app.get("/new", (req, res) => {
     res.render("todo-create-page");
@@ -59,10 +69,43 @@ app.get("/:id/edit", (req, res) => {
 
 app.post("/:id/edit", (req, res) => {
     let id = req.params.id;
-    Todo.setTitle(id, req.body.newTitle)
-    .then( () => {
-        res.redirect("/" + id);
-    })
+    let newTitle = req.body.newTitle;
+    let isDone = req.body.isdone;
+    console.log(req.body);
+
+    if (isDone) {
+        Todo.setFinished(id, true);
+    }
+
+    if (newTitle) {
+        Todo.setTitle(id, newTitle)
+        .then( () => {
+            res.redirect("/" + id);
+        })
+    } else {
+        res.redirect(`/${id}/edit`);
+    }
+
+
+
+
+});
+
+app.get("/:id/delete", (req, res) => {
+    let id = req.params.id;
+    Todo.getOne(id)
+    .then( (data) => {
+        res.render("todo-delete-page", data);
+    }).catch(data => console.error(error));
+});
+
+app.post("/:id/delete", (req, res) => {
+    let id = req.params.id;
+    Todo.deleteById(id)
+        .then( () => {
+            res.redirect("/");
+        })
+        .catch();
 });
 
 app.listen(port, () => {
